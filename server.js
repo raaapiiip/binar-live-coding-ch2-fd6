@@ -23,9 +23,9 @@ const server = http.createServer((req, res) => {
         console.log("Original data dari love-letter.txt = " + fileMain)
         async function rewriteFromRafif(filepath, content) {
             try {
-                await fsAsync.readFile(filepath, content)
+                await fsAsync.writeFile(filepath, content)
                 console.log("Sukses menulis ulang file")
-                const resultRewrite = fsAsync.readFile(filepath, "utf-8")
+                const resultRewrite = await fsAsync.readFile(filepath, "utf-8")
                 res.end(resultRewrite)
             } catch (error) {
                 console.log(error)
@@ -33,7 +33,7 @@ const server = http.createServer((req, res) => {
         }
         rewriteFromRafif("./love-letter.txt", "INI ADALAH BAGIAN RAFIF")
     } else {
-        res.end("TIDAK ADA BAGIAN | Status Code : 404")
+        res.end("TIDAK ADA DATA YANG TERSEDIA | Status Code : 404")
     }
 })
 
